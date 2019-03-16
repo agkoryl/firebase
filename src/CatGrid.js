@@ -15,25 +15,25 @@ class CatGrid extends Component {
 
 
         //pobieramy dane z internetu
-        const headers = {
-            'x-api-key': 'd24b427d-578e-4609-86bd-b36555c3875c'
-        }
-        fetch('https://api.thecatapi.com/v1/images/search?limit=10', { headers })
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(element => {
+        // const headers = {
+        //     'x-api-key': 'd24b427d-578e-4609-86bd-b36555c3875c'
+        // }
+        // fetch('https://api.thecatapi.com/v1/images/search?limit=10', { headers })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         data.forEach(element => {
 
-                    db.ref('/cats/').push({
-                        name: faker.name.firstName(), id: element.id,
-                        url: element.url
-                    });
-                });
+        //             db.ref('/cats/').push({
+        //                 name: faker.name.firstName(), id: element.id,
+        //                 url: element.url
+        //             });
+        //         });
 
 
-            });
+        //     });
 
         //pobieramy dane z firebase
-        db.ref('/cats/').on('value', (snapshot) => {
+        db.ref('/cats/').once('value', (snapshot) => {
             const cats = [];
             Object.entries(snapshot.val()).forEach(elem => {
                 const cat = {
